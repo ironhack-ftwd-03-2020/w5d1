@@ -45,6 +45,16 @@ router.post('/books', (req, res) => {
   });
 });
 
+router.get('/books/delete/:bookId', (req, res) => {
+  Book.deleteOne({ _id: req.params.bookId })
+    .then(() => {
+      res.redirect('/books');
+    })
+    .catch(err => {
+      next(err);
+    });
+});
+
 router.get('/books/:bookId', (req, res) => {
   const bookId = req.params.bookId;
   Book.findById(bookId).then(book => {
